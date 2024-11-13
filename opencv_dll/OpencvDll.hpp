@@ -14,11 +14,11 @@
 #include "ImageObject.hpp"
 #include "ImageProcessor.hpp"
 
-class OPENCV_DLL_API Opencv_dll : public ImageProcessor
+class OPENCV_DLL_API OpencvDll : public ImageProcessor
 {
 public:
-    Opencv_dll() {};
-    ~Opencv_dll() {};
+    OpencvDll() {};
+    ~OpencvDll() {};
 
     bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize);
 };

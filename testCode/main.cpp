@@ -2,7 +2,8 @@
 
 #include <opencv2/opencv.hpp>
 
-#include "opencv_dll.hpp"
+#include "OpencvDll.hpp"
+#include "CustomDll.hpp"
 
 int main() {
     // 이미지 파일 경로
@@ -19,10 +20,17 @@ int main() {
 
     ImageObject dst(image.cols, image.rows);
 
-    Opencv_dll opencvObject;
-    bool success = opencvObject.ImageBlur(&src, &dst, 5);
-    if (!success) {
-        std::cout << "블러 처리 실패!" << std::endl;
+    OpencvDll opencvDllObject;
+    CustomDll customDllObject;
+    bool opencvSuccess = opencvDllObject.ImageBlur(&src, &dst, 5);
+    bool customSuccess = customDllObject.ImageBlur(&src, &dst, 5);
+
+    if (!opencvSuccess) {
+        std::cout << "opencv : 블러 처리 실패!" << std::endl;
+        return -1;
+    }
+    if (!customSuccess) {
+        std::cout << "custom : 블러 처리 실패!" << std::endl;
         return -1;
     }
 

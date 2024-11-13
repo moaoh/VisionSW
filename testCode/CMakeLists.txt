@@ -15,10 +15,12 @@ target_include_directories(testCode PRIVATE
         ${OpenCV_INCLUDE_DIRS}
         ${CMAKE_SOURCE_DIR}/image_processor
         ${CMAKE_SOURCE_DIR}/opencv_dll
+        ${CMAKE_SOURCE_DIR}/custom_dll
 )
 
 target_link_libraries(testCode PRIVATE
         ${OpenCV_LIBS}
         image_processor
         opencv_dll
+        custom_dll
 )
