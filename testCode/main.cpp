@@ -6,7 +6,7 @@
 
 int main() {
     // 이미지 파일 경로
-    std::string imagePath = "../images/test2.jpeg";
+    std::string imagePath = "../images/test.jpeg";
 
     cv::Mat image = cv::imread(imagePath);
     if (image.empty()) {
