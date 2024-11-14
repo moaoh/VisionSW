@@ -58,13 +58,13 @@ void ImageProcessor::openAndReadFile(const std::string &configfilePath) {
     while (std::getline(configfile, line)) {
         size_t pos = line.find('=');
         if (pos == std::string::npos) {
-            throw std::invalid_argument("Failed to parse config file");
+            throw std::invalid_argument("Failed to parse config file (=)");
         }
         std::string key = line.substr(0, pos);
         std::string value = line.substr(pos + 1);
         value.erase(remove(value.begin(), value.end(), '\"'), value.end());
         if (key == "image_paths") {
-            checkIfRegularFile(value);
+            // checkIfRegularFile(value); // 일단 보류 (어디서해야할지 고민)
             imagePaths.push_back(value);
         }
         else if (key == "kernel_size") {
@@ -72,9 +72,12 @@ void ImageProcessor::openAndReadFile(const std::string &configfilePath) {
             kernelSizeCount++;
         }
         else if (key == "output_path") {
-            checkIfRegularRoot(value);
+            // checkIfRegularRoot(value); // 일단 보류 (어디서해야할지 고민)
             outputPath = value;
             outputPathCount++;
+        }
+        else {
+            throw std::invalid_argument("Failed to parse config file (key)");
         }
     }
 
