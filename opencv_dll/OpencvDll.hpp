@@ -1,5 +1,4 @@
-#ifndef OPENCV_DLL_HPP_
-#define OPENCV_DLL_HPP_
+#pragma once
 
 #ifdef _WIN32
     #ifdef OPENCV_DLL_EXPORTS
@@ -11,8 +10,7 @@
     #define OPENCV_DLL_API __attribute__((visibility("default")))  // Mac/Linux에서 사용할 export
 #endif
 
-#include "ImageObject.hpp"
-#include "ImageProcessor.hpp"
+#include "Processor.hpp"
 
 class OPENCV_DLL_API OpencvDll : public ImageProcessor
 {
@@ -20,8 +18,5 @@ public:
     OpencvDll() {};
     ~OpencvDll() {};
 
-    bool validateImage(const ImageObject* src);
-    bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize);
+    bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize) override;
 };
-
-#endif // OPENCV_DLL_HPP_
