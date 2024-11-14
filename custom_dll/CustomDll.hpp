@@ -1,5 +1,4 @@
-#ifndef CUSTOM_DLL_HPP_
-#define CUSTOM_DLL_HPP_
+#pragma once
 
 #ifdef _WIN32
     #ifdef CUSTOM_DLL_EXPORTS
@@ -20,7 +19,5 @@ public:
     CustomDll() {};
     ~CustomDll() {};
 
-    bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize);
+    bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize) override;
 };
-
-#endif // CUSTOM_DLL_HPP_
