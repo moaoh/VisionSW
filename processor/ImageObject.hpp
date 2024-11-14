@@ -1,5 +1,4 @@
-#ifndef IMAGE_OBJECT_HPP_
-#define IMAGE_OBJECT_HPP_
+#pragma once
 
 /*
 실제 pixel 값이 포함된 buffer,
@@ -24,14 +23,19 @@ public:
   void fromMat(const cv::Mat& mat);
 
   int getWidth() const;
-  int getHeight() const;
   void setWidth(int w);
+  int getHeight() const;
   void setHeight(int h);
+  std::string getImageName() const;
+  void setImageName(const std::string& name);
+  std::string getOutputPath();
+  void setOutputPath(const std::string& path);
 
 private:
   int _width;
   int _height;
   std::vector<unsigned char> _buffer;
-};
+  std::string _imageName;
+  std::string _outputPath;
 
-#endif // IMAGE_OBJECT_HPP_
+};
