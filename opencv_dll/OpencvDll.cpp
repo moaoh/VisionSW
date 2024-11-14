@@ -13,7 +13,7 @@ bool OpencvDll::ImageBlur(const ImageObject* src, ImageObject* dst, const int ke
         return false;
     }
 
-    for (int ksize = 3; ksize <= 11; ksize += 2) {
+    for (int ksize = 3; ksize <= kernelSize; ksize += 2) {
         cv::blur(image, outputImage, cv::Size(ksize, ksize));
 
         cv::String text = cv::format("Mean : %d, %d", ksize, ksize);
@@ -23,5 +23,18 @@ bool OpencvDll::ImageBlur(const ImageObject* src, ImageObject* dst, const int ke
         cv::imshow("dst", outputImage);
         cv::waitKey();
     }
+    return true;
+}
+
+// 흑백여부 판별
+bool OpencvDll::validateImage(const ImageObject* src) {
+    cv::Mat image = src->toMat();
+
+    if (image.empty()) {
+        return false;
+    }
+
+    // cv::imshow("TEST", image);
+    // cv::waitKey();
     return true;
 }

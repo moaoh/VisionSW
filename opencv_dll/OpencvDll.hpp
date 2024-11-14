@@ -20,6 +20,7 @@ public:
     OpencvDll() {};
     ~OpencvDll() {};
 
+    bool validateImage(const ImageObject* src);
     bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize);
 };
 
