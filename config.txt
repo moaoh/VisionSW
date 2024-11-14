@@ -1,4 +1,4 @@
-image_paths="images/image1.jpg"
-image_paths="images/image2.jpg"
+image_paths="../images/image1.png"
+image_paths="../images/image2.png"
 kernel_size=5
-output_path="output/"
+output_path="../output/"
