@@ -23,11 +23,13 @@ public:
     ~ImageProcessor() {};
 
     bool processFile(int argc, char* argv[]);
-    bool validateImage(const ImageObject* src, ImageObject* dst);
+    virtual bool validateImage(const ImageObject* src) = 0;
     virtual bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize) = 0;
 
     void setImagePaths(const std::vector<std::string>& paths);
     std::vector<std::string> getImagePaths();
+    const std::string getImagePathNumber(int n);
+    int getImagePathsSize();
     void setOutputPath(const std::string& path);
     std::string getOutputPath();
     void setKernelSize(int kernelSize);
@@ -41,7 +43,7 @@ private:
     void checkFileExtension(const std::string &configFile, const std::string &extension);
     void openAndReadFile(const std::string &configfile);
     void checkIfRegularFile(const std::string &filePath);
-    bool checkImageParameters(int argc, char **argv);
+    void checkIfRegularRoot(const std::string &path);
 };
 
 #endif // IMAGE_PROCESSOR_HPP_

@@ -15,6 +15,8 @@
 class ImageObject
 {
 public:
+  ImageObject();
+  ImageObject(const cv::Mat& mat);
   ImageObject(int w, int h) : _width(w), _height(h), _buffer(w * h * 3) {}
   ~ImageObject() {}
 

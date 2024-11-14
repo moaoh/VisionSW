@@ -13,18 +13,18 @@ bool ImageProcessor::processFile(int argc, char **argv) {
     if (argc != 2) {
         throw std::invalid_argument("Usage: ./ImageProcessor <image_file>");
     }
-    std::string configfile = argv[1];
-    checkFileExtension(configfile, ".txt");
-    checkIfRegularFile(configfile);
-    openAndReadFile(configfile);
+    std::string configfilePath = argv[1];
+    checkFileExtension(configfilePath, ".txt");
+    checkIfRegularFile(configfilePath);
+    openAndReadFile(configfilePath);
 
     return true;
 }
 
 // 파일 확장자확인.
-void ImageProcessor::checkFileExtension(const std::string &configFile, const std::string &extension) {
-    if (configFile.substr(configFile.size() - 4, 4) != ".txt") {
-        throw std::invalid_argument("Image file must be an .txt image");
+void ImageProcessor::checkFileExtension(const std::string &filePath, const std::string &extension) {
+    if (filePath.substr(filePath.size() - 4, 4) != extension) {
+        throw std::invalid_argument("Image file must be a " + extension + " image");
     }
 }
 
@@ -35,10 +35,17 @@ void ImageProcessor::checkIfRegularFile(const std::string &filePath) {
     }
 }
 
+// 경로 존재여부 확인
+void ImageProcessor::checkIfRegularRoot(const std::string &path) {
+    if(!std::filesystem::exists(path)) {
+        throw std::invalid_argument("Image file must be a regular Root");
+    }
+}
+
 // 파일 정보 담기
-void ImageProcessor::openAndReadFile(const std::string &configfile) {
-    std::fstream config(configfile);
-    if (!config.is_open()) {
+void ImageProcessor::openAndReadFile(const std::string &configfilePath) {
+    std::fstream configfile(configfilePath);
+    if (!configfile.is_open()) {
         throw std::invalid_argument("Failed to open config file");
     }
 
@@ -48,25 +55,29 @@ void ImageProcessor::openAndReadFile(const std::string &configfile) {
     int kernelSizeCount = 0;
     std::string outputPath;
     int outputPathCount = 0;
-    while (std::getline(config, line)) {
+    while (std::getline(configfile, line)) {
         size_t pos = line.find('=');
         if (pos == std::string::npos) {
             throw std::invalid_argument("Failed to parse config file");
         }
         std::string key = line.substr(0, pos);
         std::string value = line.substr(pos + 1);
+        value.erase(remove(value.begin(), value.end(), '\"'), value.end());
         if (key == "image_paths") {
+            checkIfRegularFile(value);
             imagePaths.push_back(value);
         }
         else if (key == "kernel_size") {
-            kernelSizeCount++;
             kernelSize = std::stoi(value);
+            kernelSizeCount++;
         }
         else if (key == "output_path") {
-            outputPathCount++;
+            checkIfRegularRoot(value);
             outputPath = value;
+            outputPathCount++;
         }
     }
+
     if (imagePaths.empty()) {
         throw std::invalid_argument("Failed to parse config file (1 < imagePaths)");
     }
@@ -81,17 +92,21 @@ void ImageProcessor::openAndReadFile(const std::string &configfile) {
     setOutputPath(outputPath);
 }
 
-// 이미지 흑백여부 판별.
-bool ImageProcessor::validateImage(const ImageObject* src, ImageObject* dst) {
-    return true;
-}
-
 void ImageProcessor::setImagePaths(const std::vector<std::string>& paths) {
     _imagePaths = paths;
 }
 std::vector<std::string> ImageProcessor::getImagePaths() {
     return _imagePaths;
 }
+
+int ImageProcessor::getImagePathsSize() {
+    return _imagePaths.size();
+}
+
+const std::string ImageProcessor::getImagePathNumber(int n) {
+    return _imagePaths[n];
+}
+
 void ImageProcessor::setOutputPath(const std::string& path) {
     _outputPath = path;
 }

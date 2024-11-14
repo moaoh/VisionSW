@@ -1,5 +1,12 @@
 #include "ImageObject.hpp"
 
+ImageObject::ImageObject(const cv::Mat& mat) {
+    _width = mat.cols;
+    _height = mat.rows;
+    _buffer.resize(_width * _height * 3);  // RGB
+    std::memcpy(_buffer.data(), mat.data, _buffer.size());
+}
+
 cv::Mat ImageObject::toMat() const {
     return cv::Mat(_height, _width, CV_8UC3, const_cast<unsigned char*>(_buffer.data()));
 }
