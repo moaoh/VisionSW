@@ -5,15 +5,14 @@
 
 #include "Processor.hpp"
 #include "OpencvDll.hpp"
-#include "GetConfigProcessor.hpp"
-// #include "CustomDll.hpp"
+#include "CustomDll.hpp"
 
 int main(int argc, const char * argv[]) {
-    OpencvDll opencv;
-    // CustomDll custom;
+    OpencvDll opencv("opencv_");
+    CustomDll custom("custom_");
 
     GetConfigProcessor config(argc, argv);
     Processor(config, opencv);
-    // Processor(config, custom);
+    Processor(config, custom);
     return 0;
 }

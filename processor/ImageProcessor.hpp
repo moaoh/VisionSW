@@ -18,8 +18,14 @@
 class IMAGE_PROCESSOR_API ImageProcessor
 {
 public:
-    ImageProcessor() {};
-    ~ImageProcessor() {};
+    ImageProcessor();
+    ImageProcessor(const std::string& prefix);
+    ~ImageProcessor();
 
     virtual bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize) = 0;
+
+    std::string getPrefix() const;
+    void setPrefix(const std::string& prefix);
+private:
+    std::string _prefix;
 };
