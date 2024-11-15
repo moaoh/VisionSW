@@ -16,6 +16,7 @@ class OPENCV_DLL_API OpencvDll : public ImageProcessor
 {
 public:
     OpencvDll() {};
+    OpencvDll(const std::string &prefix) : ImageProcessor(prefix) {};
     ~OpencvDll() {};
 
     bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize) override;

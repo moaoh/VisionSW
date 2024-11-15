@@ -10,13 +10,13 @@
     #define CUSTOM_DLL_API __attribute__((visibility("default")))  // Mac/Linux에서 사용할 export
 #endif
 
-#include "ImageObject.hpp"
 #include "ImageProcessor.hpp"
 
 class CUSTOM_DLL_API CustomDll : public ImageProcessor
 {
 public:
     CustomDll() {};
+    CustomDll(const std::string& prefix) : ImageProcessor(prefix) {};
     ~CustomDll() {};
 
     bool ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize) override;
