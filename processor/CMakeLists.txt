@@ -6,8 +6,10 @@ find_package(OpenCV REQUIRED)
 
 add_library(processor SHARED
         ImageObject.cpp
+        ImageProcessor.cpp
         GetConfigProcessor.cpp
         processor.cpp
+        Logger.cpp
 )
 
 target_include_directories(processor PUBLIC
