@@ -22,6 +22,12 @@ class Processor
 {
 public:
     Processor(GetConfigProcessor& config, ImageProcessor& imageProcessor);
+    ~Processor() {};
+
+    std::string getProcessingMode();
+    void setProcessingMode(std::string processingMode);
 private:
+    std::string _processorMode;
+
     bool validateImage(const cv::Mat* src);
 };

@@ -10,8 +10,9 @@ bool Processor::validateImage(const cv::Mat* src) {
 
 Processor::Processor(GetConfigProcessor& config, ImageProcessor& imageProcessor) {
   const int imagePathSize = config.getImagePathsSize();
+  std::string prefix = imageProcessor.getPrefix();
   ImageObject dst(cv::imread(config.getOutputPath()));
-  dst.setOutputPath(config.getOutputPath());
+  std::string outputPath = config.getOutputPath();
   int kernelSize = config.getKernelSize(); // TODO: 홀수 필터링 지정필요
 
   for (int i = 0; i < imagePathSize; i++) {
@@ -20,8 +21,15 @@ Processor::Processor(GetConfigProcessor& config, ImageProcessor& imageProcessor)
       ImageObject src(srcMat);
       std::filesystem::path p(config.getImagePaths()[i]);
       std::string filename = p.filename().string();
-      src.setImageName(filename);
-      imageProcessor.ImageBlur(&src, &dst, kernelSize);
+      if (imageProcessor.ImageBlur(&src, &dst, kernelSize)) {
+        cv::Mat dstMat = dst.toMat();
+        if (cv::imwrite((outputPath + prefix + filename), dstMat)) {
+          std::cout << "Image saved!" << std::endl;
+        }
+        else {
+          std::cout << "Image not saved!" << std::endl;
+        }
+      }
     }
     else {
       std::cout << "Failed Image Load (" << config.getImagePaths()[i] << ")" << std::endl;

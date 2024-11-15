@@ -9,11 +9,6 @@ bool OpencvDll::ImageBlur(const ImageObject* src, ImageObject* dst, const int ke
     cv::Mat image = src->toMat();
     cv::Mat outputImage = dst->toMat();
     cv::blur(image, outputImage, cv::Size(kernelSize, kernelSize));
-    if (cv::imwrite(dst->getOutputPath() + src->getImageName(), outputImage)) {
-        std::cout << "Image saved!" << std::endl;
-    }
-    else {
-        std::cout << "Image not saved!" << std::endl;
-    }
+    dst->fromMat(outputImage);
     return true;
 }
