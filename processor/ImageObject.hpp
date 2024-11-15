@@ -29,17 +29,11 @@ public:
   void setChannels(int c);
   std::vector<unsigned char> getBuffer() const;
   void setBuffer(const std::vector<unsigned char>& buffer);
-  std::string getImageName() const;
-  void setImageName(const std::string& name);
-  std::string getOutputPath();
-  void setOutputPath(const std::string& path);
 
 private:
   int _width;
   int _height;
   int _channels;
   std::vector<unsigned char> _buffer;
-  std::string _imageName;
-  std::string _outputPath;
 
 };

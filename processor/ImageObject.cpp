@@ -44,18 +44,3 @@ std::vector<unsigned char> ImageObject::getBuffer() const {
 void ImageObject::setBuffer(const std::vector<unsigned char>& buffer) {
     _buffer = buffer;
 }
-
-std::string ImageObject::getImageName() const {
-    return _imageName;
-}
-
-void ImageObject::setImageName(const std::string& name) {
-    _imageName = name;
-}
-
-std::string ImageObject::getOutputPath() {
-    return _outputPath;
-}
-void ImageObject::setOutputPath(const std::string& path) {
-    _outputPath = path;
-}
