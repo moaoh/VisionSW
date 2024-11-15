@@ -52,7 +52,7 @@ void GetConfigProcessor::openAndReadFile(const std::string &configfilePath) {
         std::string value = line.substr(pos + 1);
         value.erase(remove(value.begin(), value.end(), '\"'), value.end());
         if (key == "image_paths") {
-            // checkIfRegularFile(value); // 일단 보류 (어디서해야할지 고민)
+            checkIfRegularFile(value); // 일단 보류 (어디서해야할지 고민)
             imagePaths.push_back(value);
         }
         else if (key == "kernel_size") {
@@ -60,7 +60,7 @@ void GetConfigProcessor::openAndReadFile(const std::string &configfilePath) {
             kernelSizeCount++;
         }
         else if (key == "output_path") {
-            // checkIfRegularRoot(value); // 일단 보류 (어디서해야할지 고민)
+            checkIfRegularRoot(value); // 일단 보류 (어디서해야할지 고민)
             outputPath = value;
             outputPathCount++;
         }
@@ -75,8 +75,8 @@ void GetConfigProcessor::openAndReadFile(const std::string &configfilePath) {
     if (1 < outputPathCount) {
         throw std::invalid_argument("Failed to parse config file (outputPath == 1)");
     }
-    if (1 < kernelSizeCount) {
-        throw std::invalid_argument("Failed to parse config file (kernelSize == 1)");
+    if (1 < kernelSizeCount || kernelSize % 2 == 0) {
+        throw std::invalid_argument("Failed to parse config file (1 <= kernelSize && kernelSize % 2 != 0)");
     }
     setImagePaths(imagePaths);
     setKernelSize(kernelSize);
