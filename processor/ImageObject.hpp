@@ -16,7 +16,6 @@ class ImageObject
 public:
   ImageObject();
   ImageObject(const cv::Mat& mat);
-  ImageObject(int w, int h) : _width(w), _height(h), _buffer(w * h * 3) {}
   ~ImageObject() {}
 
   cv::Mat toMat() const;
@@ -26,6 +25,10 @@ public:
   void setWidth(int w);
   int getHeight() const;
   void setHeight(int h);
+  int getChannels() const;
+  void setChannels(int c);
+  std::vector<unsigned char> getBuffer() const;
+  void setBuffer(const std::vector<unsigned char>& buffer);
   std::string getImageName() const;
   void setImageName(const std::string& name);
   std::string getOutputPath();
@@ -34,6 +37,7 @@ public:
 private:
   int _width;
   int _height;
+  int _channels;
   std::vector<unsigned char> _buffer;
   std::string _imageName;
   std::string _outputPath;
