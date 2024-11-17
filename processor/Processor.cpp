@@ -15,32 +15,34 @@ bool Processor::isBlackAndWhite(const cv::Mat* src) {
 }
 
 // 메모리 사용량
-long Processor::getMemoryUsage() {
-  long memoryUsage = 0;
+size_t Processor::getMemoryUsage() {
+  size_t memoryUsage = 0;
 #if defined(_WIN32) || defined(_WIN64)
   PROCESS_MEMORY_COUNTERS pmc;
   if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc))) {
-    memoryUsage = pmc.WorkingSetSize / 1024;
+    memoryUsage = pmc.WorkingSetSize / 1024; // KB
   }
 #elif defined(__APPLE__) || defined(__MACH__)
   task_basic_info_data_t info;
   mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
   if (task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &infoCount) == KERN_SUCCESS) {
-    memoryUsage = info.resident_size / 1024;
+    memoryUsage = info.resident_size / 1024; // KB
   }
 #endif
 
-  return memoryUsage;
+  size_t memoryUsageMB = memoryUsage / 1024;  // KB -> MB
+
+  return memoryUsageMB;
 }
 
 // memory사용량 및 시간출력
 void Processor::logMemoryAndTime(const std::string& prefix,
-  long memoryBefore, long memoryAfter,
+  size_t memoryBefore, size_t memoryAfter,
   const std::chrono::high_resolution_clock::time_point& start,
   const std::chrono::high_resolution_clock::time_point& end) {
   std::chrono::duration<double> duration = end - start;
 
-  Logger::instance().info("[" + prefix + "] Memory Usage :" + std::to_string(memoryAfter - memoryBefore));
+  Logger::instance().info("[" + prefix + "] Memory Usage :" + std::to_string(memoryAfter - memoryBefore) + "MB");
   Logger::instance().info("[" + prefix + "] duration time :" + std::to_string(duration.count()));
 }
 
@@ -53,7 +55,7 @@ cv::Mat Processor::run(const std::string& imagePath, const std::string& outputPa
     std::filesystem::path p(imagePath);
     std::string filename = p.filename().string();
 
-    long memoryBefore = getMemoryUsage();
+    size_t memoryBefore = getMemoryUsage();
     auto start = std::chrono::high_resolution_clock::now();
 
     ImageObject dst(dstMat);
@@ -71,7 +73,7 @@ cv::Mat Processor::run(const std::string& imagePath, const std::string& outputPa
     else {
       Logger::instance().error("Failed to save image to " + outputPath + prefix + filename); // TODO
     }
-    long memoryAfter = getMemoryUsage();
+    size_t memoryAfter = getMemoryUsage();
     auto end = std::chrono::high_resolution_clock::now();
     logMemoryAndTime(prefix, memoryBefore, memoryAfter, start, end);
   }

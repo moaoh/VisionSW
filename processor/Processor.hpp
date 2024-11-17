@@ -28,9 +28,9 @@ private:
     ImageProcessor& _imageProcessor;
 
     bool isBlackAndWhite(const cv::Mat* src);
-    long getMemoryUsage();
+    size_t getMemoryUsage();
     void logMemoryAndTime(const std::string& prefix,
-        long memoryBefore, long memoryAfter,
+        size_t memoryBefore, size_t memoryAfter,
         const std::chrono::high_resolution_clock::time_point& start,
         const std::chrono::high_resolution_clock::time_point& end);
 };
