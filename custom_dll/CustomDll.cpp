@@ -32,7 +32,7 @@ bool CustomDll::ImageBlur(const ImageObject* src, ImageObject* dst, const int ke
                 }
             }
         }
-        outputBuffer[pixelIndex] = pixelSum / (kernelSize * kernelSize);
+        outputBuffer[pixelIndex] = std::round((double)pixelSum / (kernelSize * kernelSize));
     }
     dst->setBuffer(outputBuffer);
     dst->setWidth(imageWidth);

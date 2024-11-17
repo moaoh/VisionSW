@@ -10,6 +10,8 @@
     #define CUSTOM_DLL_API __attribute__((visibility("default")))  // Mac/Linux에서 사용할 export
 #endif
 
+#include <cmath>
+
 #include "ImageProcessor.hpp"
 
 class CUSTOM_DLL_API CustomDll : public ImageProcessor
