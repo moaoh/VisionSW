@@ -19,14 +19,14 @@ void GetConfigProcessor::checkFileExtension(const std::string &filePath, const s
 // 파일 존재여부 확인
 void GetConfigProcessor::checkIfRegularFile(const std::string &filePath) {
     if (!std::filesystem::exists(filePath) || !std::filesystem::is_regular_file(filePath)) {
-        throw std::invalid_argument("Image file must be a regular file");
+        throw std::invalid_argument("Image file must be a regular file :" + filePath);
     }
 }
 
 // 경로 존재여부 확인
-void GetConfigProcessor::checkIfRegularRoot(const std::string &path) {
+void GetConfigProcessor::checkIfValidPath(const std::string &path) {
     if(!std::filesystem::exists(path)) {
-        throw std::invalid_argument("Image file must be a regular Root");
+        throw std::invalid_argument("The specified path does not exist :" + path);
     }
 }
 
@@ -60,7 +60,7 @@ void GetConfigProcessor::openAndReadFile(const std::string &configfilePath) {
             kernelSizeCount++;
         }
         else if (key == "output_path") {
-            checkIfRegularRoot(value); // 일단 보류 (어디서해야할지 고민)
+            checkIfValidPath(value); // 일단 보류 (어디서해야할지 고민)
             outputPath = value;
             outputPathCount++;
         }

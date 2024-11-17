@@ -26,5 +26,5 @@ private:
     void checkFileExtension(const std::string &configFile, const std::string &extension);
     void openAndReadFile(const std::string &configfile);
     void checkIfRegularFile(const std::string &filePath);
-    void checkIfRegularRoot(const std::string &path);
+    void checkIfValidPath(const std::string &path);
 };
