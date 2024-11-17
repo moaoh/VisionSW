@@ -20,6 +20,7 @@ public:
 
   cv::Mat toMat() const;
   void fromMat(const cv::Mat& mat);
+  bool empty();
 
   int getWidth() const;
   void setWidth(int w);

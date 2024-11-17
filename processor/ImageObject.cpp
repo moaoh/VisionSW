@@ -33,6 +33,10 @@ void ImageObject::fromMat(const cv::Mat& mat) {
     std::copy(mat.data, mat.data + mat.total() * mat.elemSize(), _buffer.begin());
 }
 
+bool ImageObject::empty() {
+  return _buffer.empty();
+}
+
 int ImageObject::getWidth() const {
     return _width;
 }
