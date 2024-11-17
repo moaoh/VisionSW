@@ -10,24 +10,27 @@
     #define PROCESSOR_API __attribute__((visibility("default")))  // Mac/Linux에서 사용할 export
 #endif
 
-#include <iostream>
 #include <fstream>
-#include <filesystem>
+#include <chrono>
 
 #include "GetConfigProcessor.hpp"
 #include "ImageProcessor.hpp"
-
+#include "Logger.hpp"
 
 class Processor
 {
 public:
-    Processor(GetConfigProcessor& config, ImageProcessor& imageProcessor);
-    ~Processor() {};
+    Processor(ImageProcessor& imageProcessor);
+    ~Processor() = default;
 
-    std::string getProcessingMode();
-    void setProcessingMode(std::string processingMode);
+    cv::Mat run(const std::string& imagePath, const std::string& outputPath, int kernelSize);
 private:
-    std::string _processorMode;
+    ImageProcessor& _imageProcessor;
 
-    bool validateImage(const cv::Mat* src);
+    bool isBlackAndWhite(const cv::Mat* src);
+    long getMemoryUsage();
+    void logMemoryAndTime(const std::string& prefix,
+        long memoryBefore, long memoryAfter,
+        const std::chrono::high_resolution_clock::time_point& start,
+        const std::chrono::high_resolution_clock::time_point& end);
 };
