@@ -1,11 +1,28 @@
 #include "ImageObject.hpp"
 
+ImageObject::ImageObject() {}
+
 ImageObject::ImageObject(const cv::Mat& mat) {
     this->fromMat(mat);
 }
 
 cv::Mat ImageObject::toMat() const {
-    return cv::Mat(_height, _width, CV_8UC1, const_cast<unsigned char*>(_buffer.data())).clone();
+  if (_buffer.empty() || _height <= 0 || _width <= 0) {
+    return cv::Mat();
+  }
+
+  int cvType;
+  if (_channels == 1) {
+    cvType = CV_8UC1;  // 1 흑백
+  } else if (_channels == 3) {
+    cvType = CV_8UC3;  // 3 RGB
+  } else if (_channels == 4) {
+    cvType = CV_8UC4;  // 4 RGBA
+  } else {
+    return cv::Mat();
+  }
+
+  return cv::Mat(_height, _width, cvType, const_cast<unsigned char*>(_buffer.data())).clone();
 }
 
 void ImageObject::fromMat(const cv::Mat& mat) {
