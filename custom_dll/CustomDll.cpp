@@ -15,7 +15,7 @@ bool CustomDll::ImageBlur(const ImageObject* src, ImageObject* dst, const int ke
     int imageWidth = src->getWidth();
     int imageHeight = src->getHeight();
 
-    std::vector<unsigned char> inputBuffer = src->getBuffer();
+    const std::vector<unsigned char>& inputBuffer = src->getBuffer();
     std::vector<unsigned char> outputBuffer(imageWidth * imageHeight * src->getChannels());
 
     int kernelRadius = kernelSize / 2;
