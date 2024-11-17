@@ -7,7 +7,7 @@
         #define CUSTOM_DLL_API __declspec(dllimport)
     #endif
 #else
-    #define CUSTOM_DLL_API __attribute__((visibility("default")))  // Mac/Linux에서 사용할 export
+    #define CUSTOM_DLL_API __attribute__((visibility("default")))
 #endif
 
 #include <cmath>

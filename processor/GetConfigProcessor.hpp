@@ -1,15 +1,5 @@
 #pragma once
 
-#ifdef _WIN32
-    #ifdef GET_CONFIG_PROCESSOR_EXPORTS
-        #define GET_CONFIG_PROCESSOR_API __declspec(dllexport)
-    #else
-        #define GET_CONFIG_PROCESSOR_API __declspec(dllimport)
-    #endif
-#else
-    #define GET_CONFIG_PROCESSOR_API __attribute__((visibility("default")))  // Mac/Linux에서 사용할 export
-#endif
-
 #include <iostream>
 #include <fstream>
 #include <vector>
