@@ -1,5 +1,7 @@
 #include "CustomDll.hpp"
 
+#include <Logger.hpp>
+
 /*
 src : 입력영상
 dst : 출력영상
@@ -18,21 +20,27 @@ bool CustomDll::ImageBlur(const ImageObject* src, ImageObject* dst, const int ke
     for (int pixelIndex = 0; pixelIndex < inputBuffer.size(); pixelIndex++) {
         int centerY = pixelIndex / imageWidth;
         int centerX = pixelIndex % imageWidth;
-        int pixelSum = 0;
+        double pixelSum = 0;
         for (int offsetY = -kernelRadius; offsetY <= kernelRadius; offsetY++) {
             for (int offsetX = -kernelRadius; offsetX <= kernelRadius; offsetX++) {
-                int neighborY = centerY + offsetY;
-                int neighborX = centerX + offsetX;
+              int neighborY = centerY + offsetY;
+              int neighborX = centerX + offsetX;
 
-                if (0 <= neighborY && neighborY < imageHeight && 0 <= neighborX && neighborX < imageWidth) {
-                    int neighborIndex = neighborY * imageWidth + neighborX;
-                    pixelSum += inputBuffer[neighborIndex];
-                } else {
-                    pixelSum += inputBuffer[pixelIndex];
-                }
+              if (neighborY < 0) {
+                neighborY = -neighborY;
+              } else if (neighborY >= imageHeight) {
+                neighborY = 2 * imageHeight - neighborY - 2;
+              }
+              if (neighborX < 0) {
+                neighborX = -neighborX;
+              } else if (neighborX >= imageWidth) {
+                neighborX = 2 * imageWidth - neighborX - 2;
+              }
+              int neighborIndex = neighborY * imageWidth + neighborX;
+              pixelSum += inputBuffer[neighborIndex];
             }
         }
-        outputBuffer[pixelIndex] = std::round((double)pixelSum / (kernelSize * kernelSize));
+        outputBuffer[pixelIndex] = std::round(pixelSum / (kernelSize * kernelSize));
     }
     dst->setBuffer(outputBuffer);
     dst->setWidth(imageWidth);
