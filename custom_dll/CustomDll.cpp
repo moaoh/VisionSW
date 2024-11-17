@@ -8,6 +8,9 @@ dst : 출력영상
 kernelSize : 블러링 커널 크기 ( 블러의 강도 )
 */
 bool CustomDll::ImageBlur(const ImageObject* src, ImageObject* dst, const int kernelSize) {
+    if(!src || !dst) {
+      return false;
+    }
 
     int imageWidth = src->getWidth();
     int imageHeight = src->getHeight();
