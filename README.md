@@ -2,24 +2,52 @@
 
 VisionSW 프로젝트는 OpenCV의 cv::Blur 필터를 직접 구현하여 이미지의 Blur 처리를 수행하고, 그 성능을 비교하는 프로젝트입니다. 이 프로젝트는 성능 테스트와 이미지 처리 비교를 목표로 하고 있습니다.
 
+
 ## Table Of Contents
 1. [Preview](#preview)
 2. [Build and Run](#build-and-run)
 3. [Log Output](#log-output)
 4. [Performance Results](#performance-results)
 
+
 ## Preview
 
-#### output Images
-<img width="215" alt="image" src="https://github.com/user-attachments/assets/f560a7d4-324c-475f-9861-e997f527fd9b">
+<table>
+  <tr>
+    <td>
+      <img width="300" style="margin-bottom: 5px;" alt="image" src="https://github.com/user-attachments/assets/f560a7d4-324c-475f-9861-e997f527fd9b">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span>output Images</span>
+    </td>
+  </tr>
+</table>
 
+<table>
+  <th colspan="2">
+    ksize: 51 x 51
+  </th>
+  <tr>
+    <td>
+      <img width="450" alt="before" src="https://github.com/user-attachments/assets/70e0442e-3eb6-4bb6-b575-9f69ddf4535a">
+    </td>
+    <td>
+      <img width="450" alt="after" src="https://github.com/user-attachments/assets/2c1993a1-5478-4267-a065-b6d742e18ed9">
+    </td>
+  </tr>
 
-### [kernelSize : 51x51] before / after
+  <tr >
+    <td align="center">
+      <span>before</span>
+    </td>
+   <td align="center">
+      <span>after</span>
+    </td>
+  </tr>
+</table>
 
-<p align="center">
-    <img width="32%" align="center" alt="before" src="https://github.com/user-attachments/assets/70e0442e-3eb6-4bb6-b575-9f69ddf4535a">
-    <img width="32%" align="center" alt="after" src="https://github.com/user-attachments/assets/2c1993a1-5478-4267-a065-b6d742e18ed9">
-</p>
 
 ## Build and Run
 
@@ -51,6 +79,25 @@ OpenCV 설치 및 프로젝트 빌드를 위한 단계입니다.
     ```
 
     `config.txt` 파일에는 처리할 이미지나 설정이 포함되어 있어야 합니다.
+
+
+#### (example) config.txt
+```txt
+image_paths=<image_file_path>
+image_paths=<image_file_path>
+kernel_size=<kernel_size (홀수)> 
+output_path=<output_path>
+```
+#### config.txt
+```txt
+image_paths="../images/image1.jpg"
+image_paths="../images/image2.jpg"
+image_paths="../images/image3.jpg"
+image_paths="../images/image4.jpg"
+kernel_size=21
+output_path="../output/"
+```
+
 
 ## Log Output
 
