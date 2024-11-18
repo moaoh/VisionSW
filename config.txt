@@ -1,3 +1,6 @@
+image_paths="../images/image1.jpg"
 image_paths="../images/image2.jpg"
+image_paths="../images/image3.jpg"
+image_paths="../images/image4.jpg"
 kernel_size=21
 output_path="../output/"
