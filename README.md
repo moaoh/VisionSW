@@ -10,7 +10,12 @@ VisionSW 프로젝트는 OpenCV의 Blur 필터를 직접 구현하여 이미지�
 
 ## Preview
 
+<img width="215" alt="image" src="https://github.com/user-attachments/assets/f560a7d4-324c-475f-9861-e997f527fd9b">
 
+<p align="center">
+    <img width="32%" align="center" alt="before" src="https://github.com/user-attachments/assets/70e0442e-3eb6-4bb6-b575-9f69ddf4535a">
+    <img width="32%" align="center" alt="after" src="https://github.com/user-attachments/assets/2c1993a1-5478-4267-a065-b6d742e18ed9">
+</p>
 
 ## Build and Run
 
@@ -98,5 +103,5 @@ OpenCV 설치 및 프로젝트 빌드를 위한 단계입니다.
 ### 이미지 비교
 - `이미지 1`, `이미지 2`, `이미지 3`은 OpenCV와 사용자 정의 구현을 통해 처리된 결과가 동일하다는 로그로 확인되었습니다.
 
-### 경고
-- `image4.jpg`는 흑백 이미지가 아니었으므 경고를 발생시켰습니다.
+### WARNING
+- `image4.jpg`는 흑백 이미지가 아니었으므 WARNING을 발생시켰습니다.
