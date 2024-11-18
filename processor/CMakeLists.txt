@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.10)
 
 project(processor)
-
-find_package(OpenCV REQUIRED)
 
 add_library(processor SHARED
         ImageObject.cpp

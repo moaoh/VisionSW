@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.10)
 
 project(opencv_dll)
-
-find_package(OpenCV REQUIRED)
 
 add_library(opencv_dll SHARED
         OpencvDll.cpp

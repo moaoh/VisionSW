@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.10)
 
 project(test_code)
-
-find_package(OpenCV REQUIRED)
 
 add_executable(test_code
         main.cpp
