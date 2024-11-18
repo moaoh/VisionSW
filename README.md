@@ -1,6 +1,6 @@
 # VisionSW
 
-VisionSW 프로젝트는 OpenCV의 Blur 필터를 직접 구현하여 이미지의 Blur 처리를 수행하고, 그 성능을 비교하는 프로젝트입니다. 이 프로젝트는 성능 테스트와 이미지 처리 비교를 목표로 하고 있습니다.
+VisionSW 프로젝트는 OpenCV의 cv::Blur 필터를 직접 구현하여 이미지의 Blur 처리를 수행하고, 그 성능을 비교하는 프로젝트입니다. 이 프로젝트는 성능 테스트와 이미지 처리 비교를 목표로 하고 있습니다.
 
 ## Table Of Contents
 1. [Preview](#preview)
@@ -10,7 +10,11 @@ VisionSW 프로젝트는 OpenCV의 Blur 필터를 직접 구현하여 이미지�
 
 ## Preview
 
+#### output Images
 <img width="215" alt="image" src="https://github.com/user-attachments/assets/f560a7d4-324c-475f-9861-e997f527fd9b">
+
+
+### [kernelSize : 51x51] before / after
 
 <p align="center">
     <img width="32%" align="center" alt="before" src="https://github.com/user-attachments/assets/70e0442e-3eb6-4bb6-b575-9f69ddf4535a">
