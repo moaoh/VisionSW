@@ -23,6 +23,6 @@ target_link_libraries(test_code PRIVATE
 )
 
 add_custom_command(TARGET test_code POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/bin
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:test_code> ${CMAKE_SOURCE_DIR}/bin
-        COMMENT "Copying testCode executable to bin directory"
 )
