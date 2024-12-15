@@ -47,8 +47,12 @@ void Processor::logMemoryAndTime(const std::string& prefix,
   std::chrono::duration<double> duration = end - start;
   size_t memoryDifference = (memoryAfter > memoryBefore) ? (memoryAfter - memoryBefore) : 0;
 
-
-  Logger::instance().info("[" + prefix + "] Memory Usage :" + std::to_string(memoryDifference) + "KB");
+  if (memoryDifference == 0) {
+    Logger::instance().info("[" + prefix + "]" + " error : Memory measurement error");
+  }
+  else {
+    Logger::instance().info("[" + prefix + "] Memory Usage :" + std::to_string(memoryDifference) + "KB");
+  }
   Logger::instance().info("[" + prefix + "] duration time :" + std::to_string(duration.count()));
 }
 
