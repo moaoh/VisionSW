@@ -11,8 +11,10 @@
 #endif
 
 #include <cmath>
+#include <thread>
 
 #include "ImageProcessor.hpp"
+#include <Logger.hpp>
 
 class CUSTOM_DLL_API CustomDll : public ImageProcessor
 {
