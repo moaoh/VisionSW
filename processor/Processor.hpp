@@ -13,6 +13,9 @@
 #include <fstream>
 #include <chrono>
 
+#include <mach/mach.h>
+#include <mach/task.h>
+
 #include "GetConfigProcessor.hpp"
 #include "ImageProcessor.hpp"
 #include "Logger.hpp"

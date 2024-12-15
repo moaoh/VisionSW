@@ -1,8 +1,5 @@
 #include "Processor.hpp"
 
-#include <mach/mach.h>
-#include <mach/task.h>
-
 Processor::Processor(ImageProcessor& imageProcessor)
   : _imageProcessor(imageProcessor) {}
 
@@ -14,6 +11,10 @@ bool Processor::isBlackAndWhite(const cv::Mat* src) {
   return true;
 }
 
+/*
+* TODO : Before보다 After가 메모리 측정값이 더 적은 경우가 존재.
+*  그로인해 음수가 나와 오버플로우 발생 해결 필요.
+ */
 // 메모리 사용량
 size_t Processor::getMemoryUsage() {
   size_t memoryUsage = 0;
@@ -27,12 +28,15 @@ size_t Processor::getMemoryUsage() {
   mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
   if (task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &infoCount) == KERN_SUCCESS) {
     memoryUsage = info.resident_size / 1024; // KB
+  } else {
+    memoryUsage = 0;
   }
 #endif
 
-  size_t memoryUsageMB = memoryUsage / 1024;  // KB -> MB
+//  size_t memoryUsageMB = memoryUsage / 1024;  // KB -> MB
 
-  return memoryUsageMB;
+  return memoryUsage; // KB
+//  return memoryUsageMB;
 }
 
 // memory사용량 및 시간출력
@@ -41,8 +45,10 @@ void Processor::logMemoryAndTime(const std::string& prefix,
   const std::chrono::high_resolution_clock::time_point& start,
   const std::chrono::high_resolution_clock::time_point& end) {
   std::chrono::duration<double> duration = end - start;
+  size_t memoryDifference = (memoryAfter > memoryBefore) ? (memoryAfter - memoryBefore) : 0;
 
-  Logger::instance().info("[" + prefix + "] Memory Usage :" + std::to_string(memoryAfter - memoryBefore) + "MB");
+
+  Logger::instance().info("[" + prefix + "] Memory Usage :" + std::to_string(memoryDifference) + "KB");
   Logger::instance().info("[" + prefix + "] duration time :" + std::to_string(duration.count()));
 }
 
@@ -71,7 +77,7 @@ cv::Mat Processor::run(const std::string& imagePath, const std::string& outputPa
       }
     }
     else {
-      Logger::instance().error("Failed to save image to " + outputPath + prefix + filename); // TODO
+      Logger::instance().error("Failed to save image to " + outputPath + prefix + filename);
     }
     size_t memoryAfter = getMemoryUsage();
     auto end = std::chrono::high_resolution_clock::now();
