@@ -104,29 +104,29 @@ output_path="../output/"
 이미지 처리 중 발생하는 로그 출력 예시입니다. 이 로그에는 처리된 이미지와 성능, 메모리 사용량 등의 정보가 포함됩니다.
 
 ```plaintext
-[Mon Nov 18 18:05:30 2024] [INFO] [opencv] Image saved to ../output/opencvimage1.jpg
-[Mon Nov 18 18:05:30 2024] [INFO] [opencv] Memory Usage :298MB
-[Mon Nov 18 18:05:30 2024] [INFO] [opencv] duration time :1.221481
-[Mon Nov 18 18:07:44 2024] [INFO] [custom] Image saved to ../output/customimage1.jpg
-[Mon Nov 18 18:07:44 2024] [INFO] [custom] Memory Usage :18446744073709551467MB
-[Mon Nov 18 18:07:44 2024] [INFO] [custom] duration time :133.418781
-[Mon Nov 18 18:07:45 2024] [INFO] ../images/image1.jpg are identical
-[Mon Nov 18 18:07:47 2024] [INFO] [opencv] Image saved to ../output/opencvimage2.jpg
-[Mon Nov 18 18:07:47 2024] [INFO] [opencv] Memory Usage :178MB
-[Mon Nov 18 18:07:47 2024] [INFO] [opencv] duration time :1.571371
-[Mon Nov 18 18:10:36 2024] [INFO] [custom] Image saved to ../output/customimage2.jpg
-[Mon Nov 18 18:10:36 2024] [INFO] [custom] Memory Usage :18446744073709551306MB
-[Mon Nov 18 18:10:36 2024] [INFO] [custom] duration time :168.127283
-[Mon Nov 18 18:10:37 2024] [INFO] ../images/image2.jpg are identical
-[Mon Nov 18 18:10:38 2024] [INFO] [opencv] Image saved to ../output/opencvimage3.jpg
-[Mon Nov 18 18:10:38 2024] [INFO] [opencv] Memory Usage :79MB
-[Mon Nov 18 18:10:38 2024] [INFO] [opencv] duration time :1.112949
-[Mon Nov 18 18:12:55 2024] [INFO] [custom] Image saved to ../output/customimage3.jpg
-[Mon Nov 18 18:12:55 2024] [INFO] [custom] Memory Usage :18446744073709551287MB
-[Mon Nov 18 18:12:55 2024] [INFO] [custom] duration time :136.285041
-[Mon Nov 18 18:12:56 2024] [INFO] ../images/image3.jpg are identical
-[Mon Nov 18 18:12:57 2024] [WARNING] It's not a black-and-white image ../images/image4.jpg
-[Mon Nov 18 18:12:58 2024] [WARNING] It's not a black-and-white image ../images/image4.jpg
+[Sun Dec 15 21:21:13 2024] [INFO] [opencv] Image saved to ../output/opencvimage1.jpg
+[Sun Dec 15 21:21:13 2024] [INFO] [opencv] Memory Usage :299376KB
+[Sun Dec 15 21:21:13 2024] [INFO] [opencv] duration time :1.313305
+[Sun Dec 15 21:21:57 2024] [INFO] [custom] Image saved to ../output/customimage1.jpg
+[Sun Dec 15 21:21:57 2024] [INFO] [custom] error : Memory measurement error
+[Sun Dec 15 21:21:57 2024] [INFO] [custom] duration time :42.772318
+[Sun Dec 15 21:21:58 2024] [INFO] ../images/image1.jpg are identical
+[Sun Dec 15 21:22:00 2024] [INFO] [opencv] Image saved to ../output/opencvimage2.jpg
+[Sun Dec 15 21:22:00 2024] [INFO] [opencv] Memory Usage :348032KB
+[Sun Dec 15 21:22:00 2024] [INFO] [opencv] duration time :1.454158
+[Sun Dec 15 21:22:54 2024] [INFO] [custom] Image saved to ../output/customimage2.jpg
+[Sun Dec 15 21:22:54 2024] [INFO] [custom] error : Memory measurement error
+[Sun Dec 15 21:22:54 2024] [INFO] [custom] duration time :52.886826
+[Sun Dec 15 21:22:55 2024] [INFO] ../images/image2.jpg are identical
+[Sun Dec 15 21:22:56 2024] [INFO] [opencv] Image saved to ../output/opencvimage3.jpg
+[Sun Dec 15 21:22:56 2024] [INFO] [opencv] Memory Usage :80816KB
+[Sun Dec 15 21:22:56 2024] [INFO] [opencv] duration time :1.098710
+[Sun Dec 15 21:23:37 2024] [INFO] [custom] Image saved to ../output/customimage3.jpg
+[Sun Dec 15 21:23:37 2024] [INFO] [custom] error : Memory measurement error
+[Sun Dec 15 21:23:37 2024] [INFO] [custom] duration time :39.883245
+[Sun Dec 15 21:23:37 2024] [INFO] ../images/image3.jpg are identical
+[Sun Dec 15 21:23:38 2024] [WARNING] It's not a black-and-white image ../images/image4.jpg
+[Sun Dec 15 21:23:38 2024] [WARNING] It's not a black-and-white image ../images/image4.jpg
 ```
 ### 로그 항목 설명:
 - `INFO`: 정상적인 처리 결과입니다. 이미지 저장 경로, 메모리 사용량, 처리 시간 등의 유용한 정보를 기록합니다.
@@ -141,13 +141,13 @@ output_path="../output/"
 
 | Metric          | OpenCV (Time) | OpenCV (Memory) | Custom (Time)  | Custom (Memory) |
 |-----------------|---------------|-----------------|----------------|-----------------|
-| Image 1         | 1.22s         | 298MB           | 133.42s        | 18446744073709551467MB |
-| Image 2         | 1.57s         | 178MB           | 168.13s        | 18446744073709551306MB |
-| Image 3         | 1.11s         | 79MB            | 136.29s        | 18446744073709551287MB |
+| Image 1         | 1.31s         | 299376KB        | 42.77s         | error           |
+| Image 2         | 1.45s         | 238352KB        | 52.88s         | error           |
+| Image 3         | 1.09s         | 75184KB         | 39.88s         | error           |
 
 ### Analysis
 - **OpenCV**: 이미지를 처리하는 속도가 매우 빠르고, 메모리 사용량도 안정적입니다.
-- **Custom Implementation**: 속도가 매우 느리고, 메모리 사용량이 비정상적으로 크며, 이는 64비트 음수 값처럼 보이는 이상한 값으로 기록되고 있습니다. 
+- **CustomCV**: 속도가 매우 느리고, 메모리의 사용량이 오버플로우로 인해 정상적인 측정이 이루어지지않았습니다.
   이 문제는 메모리 할당 및 관리 부분에서 최적화가 필요할 수 있음을 나타냅니다.
 
 ### Notes
