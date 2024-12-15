@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(AiV-VisionSW)
+project(visionSW)
 
 set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/opencv/build)
 find_package(OpenCV REQUIRED NO_DEFAULT_PATH)
